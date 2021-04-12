@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primitiva</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Primitiva</h1>
+
+    <section id="inicio">
+
+        <h2>¿Cuántas apuestas quieres jugar?</h2>
+        <p>Cada apuesta es 1 conjunto de 6 números no repetidos y comprendidos entre 1 y 49</p>
+
+        <div class="range container">
+            <div id="etiqueta"></div>
+        <input type="range" name="numeroApuestas" id="numeroApuestas" min="1" max="8" value="1">
+        </div>
+
+        <button onclick="inicio()">Comenzar</button>        
+
+    </section>
+
+    <section id="apuestas">
+
+        <h2>Haga sus apuestas</h2>
+
+        <div id="tablero"></div>
+
+        <button onclick="jugar()">Echar primitiva</button>
+
+    </section>
+    
+    <script src="app.js"></script>
+</body>
+</html>
