@@ -1,3 +1,5 @@
+/* GENERAL */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,26 +7,63 @@
 }
 
 body {
+    font-family: 'Roboto', sans-serif;
+
     height: 100vh;
 
     background-color: #42378f;
     background-image: linear-gradient(315deg, #42378f 0%, #f53844 74%);
 }
 
-h1 {
+h1, h2, h3 {
+    font-family: 'Ubuntu', sans-serif;
+    color: #42378f;
     text-align: center;
-    padding: 20px;
+}
+
+h1 {
+    padding: 15px;
 
     color: white;
     text-shadow: 0 0px 5px black;
 }
 
-section#inicio {
-    width: 500px;
-    height: 400px;
+h2 {
+    margin-bottom: 30px;
+}
+
+p {
+    font-weight: bold;
+}
+
+button {
+    margin: 0 auto;
+    padding: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+
+    outline: none;
+    border: none;
+    border-radius: 24px;
+
+    background-color: #f53844;
+    color: white;
+
+    transition: background-color .25s ease-in-out;
+}
+
+button:hover {
+    background-color: #42378f;
+    color: white;
+}
+
+/* INICIO */
+
+#inicio {
+    width: 50%;
     margin: auto;
 
-    padding: 20px;
+    padding: 40px;
     background-color: white;
     border-radius: 24px;
     box-shadow: 0 0 1px 1px black;
@@ -32,12 +71,23 @@ section#inicio {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
 }
 
-section#apuestas {
-    width: 95%;
-    margin: auto;
+.range-container {
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+#inicio p {
+    margin-bottom: 30px;
+}
+
+/* APUESTAS */
+
+#apuestas {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
 
     background-color: white;
     border-radius: 24px;
@@ -49,25 +99,22 @@ section#apuestas {
     align-items: center;
 }
 
-section#apuestas h2, section#apuestas button {
+#apuestas h2, #apuestas button {
     margin: 20px 0;
 }
 
 #tablero {
     width: 100%;
 
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    justify-content: space-evenly;
-    row-gap: 20px;
-}
-
-#tablero > div {
-    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }
 
 #tablero h3 {
-    text-align: center;
+    margin-bottom: 10px;
 }
 
 #casillas {
@@ -75,12 +122,49 @@ section#apuestas h2, section#apuestas button {
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
 }
 
-#casillas span {
-    padding: 5px;
+span {
+    padding: 4px;
     cursor: pointer;
 }
 
-#casillas span.checked {
+span.checked {
     color: white;
-    background-color: black;
+    background-color: #f53844;
+}
+
+/* RESULTADOS */
+
+#resultados {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px;
+
+    padding: 40px;
+    background-color: white;
+    border-radius: 24px;
+    box-shadow: 0 0 1px 1px black;
+
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#rank {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+} 
+
+#resultados p {
+    margin-top: 30px;
+}
+
+p#premio {
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #f53844;
 }

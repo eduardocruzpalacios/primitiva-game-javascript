@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primitiva</title>
     <link rel="stylesheet" href="style.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -14,11 +17,12 @@
     <section id="inicio">
 
         <h2>¿Cuántas apuestas quieres jugar?</h2>
+        <p>Puedes jugar entre 1 y 8 apuesta/s</p>
         <p>Cada apuesta es 1 conjunto de 6 números no repetidos y comprendidos entre 1 y 49</p>
 
-        <div class="range container">
+        <div class="range-container">
             <div id="etiqueta"></div>
-        <input type="range" name="numeroApuestas" id="numeroApuestas" min="1" max="8" value="1">
+            <input type="range" name="numeroApuestas" id="numeroApuestas" min="1" max="8" value="1">
         </div>
 
         <button onclick="inicio()">Comenzar</button>        
@@ -32,6 +36,16 @@
         <div id="tablero"></div>
 
         <button onclick="jugar()">Echar primitiva</button>
+
+    </section>
+
+    <section id="resultados">
+
+        <h2>Resultados</h2>
+
+        <p id="premio"></p>
+
+        <div id="rank"></div>
 
     </section>
     

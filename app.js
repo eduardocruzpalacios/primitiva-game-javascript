@@ -36,6 +36,8 @@ function inicio() {
     }
 }
 
+// CREAR TABLERO DE APUESTAS
+
 function crearTablero() {
 
     let codigoA, bloque, titulo, casillas, unidad, codigoN;
@@ -74,6 +76,8 @@ function crearTablero() {
     }
 }
 
+// CADA VEZ QUE USUARIO CLICA UNA CASILLA DE NÚMERO
+
 function checkCasilla(id) {
 
     let elementoClicado = document.getElementById(id);
@@ -84,8 +88,8 @@ function checkCasilla(id) {
 
     console.log("id elemento = " + idElementoClicado);
     idElementoClicado = idElementoClicado.substring(3);
-        idElementoClicado = Number(idElementoClicado);
-        console.log("id elemento = " + idElementoClicado);
+    idElementoClicado = Number(idElementoClicado);
+    console.log("id elemento = " + idElementoClicado);
     console.log("apuesta clicada = " + apuestaClicada);
     console.log("index apuestas = " + index);
 
@@ -111,7 +115,7 @@ function checkCasilla(id) {
     }
 }
 
-// JUGAR
+// BOTÓN ECHAR PRIMITIVA
 
 var contador = 0;
 var premio;
@@ -134,7 +138,12 @@ function jugar() {
     else if (contador == numeroApuestas) {
         console.log("apuestas completas");
         premio = rellenarVectorAleatoriosEntre(1,49,6);
-        console.log("Los números del premio son: " + premio);
+        let cajaQuitar = document.getElementById('apuestas');
+        let cajaPoner = document.getElementById('resultados');
+        cajaQuitar.style.display = "none";
+        cajaPoner.style.display = "flex";
+        let imprimirPremio = document.getElementById('premio');
+        imprimirPremio.innerHTML = "premio = " + premio;
         checkApuesta(apuestas, premio);
     }
 }
@@ -163,27 +172,34 @@ function rellenarVectorAleatoriosEntre(min,max,longitudVector) {
 function checkApuesta(apuestas,premio) {
 
     let aciertos = 0;
-
-    console.log("Tus apuestas fueron:");
+    let caja, titulo, numeros, acertados;
+    let tablero = document.getElementById("rank");
 
     for (let j=0 ; j<apuestas.length ; j++) {
 
-        console.log("***** APUESTA nº " + (j+1));
+        caja = document.createElement("div");
+
+        titulo = document.createElement("h3");
+        titulo.innerHTML = "*** APUESTA " + (j+1) + " ***";
+        caja.appendChild(titulo);
+
+        numeros = document.createElement("p");
+        numeros.innerHTML = "números = " +apuestas[j];
+        caja.appendChild(numeros);
         
         for (let k=0 ; k<apuestas[j].length ; k++) {
-            console.log(apuestas[j][k]);
-        }
-    }
-
-    for (let l=0 ; l<apuestas.length ; l++) {
-        for (let m=0 ; m<apuestas[l].length ; m++) {
-            for (let n=0 ; n<premio.length ; n++) {
-                if (apuestas[l][m] == premio[n]) {
+            for (let l=0 ; l<premio.length ; l++) {
+                if (apuestas[j][k] == premio[l]) {
                     aciertos++;
                 }
             }
+            
         }
-    console.log("nº ACIERTOS APUESTA " + (l+1) + ": " + aciertos);
-    aciertos = 0;
+        acertados = document.createElement("p");
+        acertados.innerHTML = "aciertos = " + aciertos;
+        caja.appendChild(acertados);
+        aciertos = 0;
+
+        tablero.appendChild(caja);
     }
 }
