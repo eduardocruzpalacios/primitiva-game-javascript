@@ -60,7 +60,7 @@ button:hover {
 /* INICIO */
 
 #inicio {
-    width: 50%;
+    width: 90%;
     margin: auto;
 
     padding: 40px;
@@ -167,4 +167,24 @@ p#premio {
     margin-bottom: 30px;
     text-align: center;
     color: #f53844;
+}
+
+/* MQ */
+
+@media (min-width: 650px) {
+    #inicio {
+        width: 500px;
+    }
+}
+
+@media (min-width: 1380px) {
+    #apuestas {
+        width: 1380px;
+    }
+}
+
+@media (min-width: 1280px) {
+    #resultados {
+        width: 1280px;
+    }
 }
