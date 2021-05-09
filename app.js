@@ -67,7 +67,7 @@ function crearTablero() {
             codigoN = codigoA + "n" + j;
             unidad.setAttribute("id", codigoN);
             let funcion = "checkCasilla('" + codigoN + "')";
-            unidad.setAttribute("onclick", funcion)
+            unidad.setAttribute("onclick", funcion);
             casillas.appendChild(unidad);
         }
         bloque.appendChild(casillas);
