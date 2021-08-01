@@ -61,7 +61,7 @@ button:hover {
 
 /* INICIO */
 
-#inicio {
+#initialSetUp {
     width: 90%;
     margin: auto;
 
@@ -80,13 +80,13 @@ button:hover {
     margin-bottom: 30px;
 }
 
-#inicio p {
+#initialSetUp p {
     margin-bottom: 30px;
 }
 
-/* APUESTAS */
+/* BETS */
 
-#apuestas {
+#bets {
     width: 90%;
     margin-right: auto;
     margin-left: auto;
@@ -101,12 +101,12 @@ button:hover {
     align-items: center;
 }
 
-#apuestas h2,
-#apuestas button {
+#bets h2,
+#bets button {
     margin: 20px 0;
 }
 
-#tablero {
+#board {
     width: 100%;
 
     display: flex;
@@ -116,11 +116,11 @@ button:hover {
     flex-wrap: wrap;
 }
 
-#tablero h3 {
+#board h3 {
     margin-bottom: 10px;
 }
 
-#casillas {
+#tiles {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
 }
@@ -137,7 +137,7 @@ span.checked {
 
 /* RESULTADOS */
 
-#resultados {
+#results {
     width: 90%;
     margin-right: auto;
     margin-left: auto;
@@ -161,11 +161,11 @@ span.checked {
     flex-wrap: wrap;
 }
 
-#resultados p {
+#results p {
     margin-top: 30px;
 }
 
-p#premio {
+p#prize {
     margin-top: 0;
     margin-bottom: 30px;
     text-align: center;
@@ -175,19 +175,19 @@ p#premio {
 /* MQ */
 
 @media (min-width: 650px) {
-    #inicio {
+    #initialSetUp {
         width: 500px;
     }
 }
 
 @media (min-width: 1380px) {
-    #apuestas {
+    #bets {
         width: 1380px;
     }
 }
 
 @media (min-width: 1280px) {
-    #resultados {
+    #results {
         width: 1280px;
     }
 }

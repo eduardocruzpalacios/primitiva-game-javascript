@@ -1,201 +1,208 @@
-// ETIQUETA RANGE
+// RANGE ELEMENT
 
-var elInput = document.getElementById('numeroApuestas');
+const betsNumberEl = document.getElementById('betsNumber');
 
-if (elInput) {
+if (betsNumberEl) {
 
-    var etiqueta = document.querySelector('#etiqueta');
+    const betsNumberTag = document.querySelector('#betsNumberTag');
 
-    if (etiqueta) {
+    if (betsNumberTag) {
 
-        etiqueta.innerHTML = elInput.value;
+        betsNumberTag.innerHTML = betsNumberEl.value;
 
-        elInput.addEventListener('input', function () {
-            etiqueta.innerHTML = elInput.value;
+        betsNumberEl.addEventListener('input', function () {
+            betsNumberTag.innerHTML = betsNumberEl.value;
         }, false);
     }
 }
 
-// INICIO
+// START
 
-var numeroApuestas;
-var apuestas;
+let betsNumber;
+let bets = [];
 
-function inicio() {
-    let cajaQuitar = document.getElementById('inicio');
-    let cajaPoner = document.getElementById('apuestas');
-    cajaQuitar.style.display = "none";
-    numeroApuestas = elInput.value;
-    // console.log(numeroApuestas);
-    cajaPoner.style.display = "flex";
-    crearTablero();
-    apuestas = new Array(Number(numeroApuestas));
-    for (let i = 0; i < apuestas.length; i++) {
-        apuestas[i] = [];
-        // console.log("apuesta definida " + (i+1));
+function Start() {
+    const containerToRemove = document.getElementById('initialSetUp');
+    const containerToAdd = document.getElementById('bets');
+    containerToRemove.style.display = 'none';
+    betsNumber = betsNumberEl.value;
+    //console.log('betsNumber: ' + betsNumber);
+    containerToAdd.style.display = 'flex';
+    CreateBoard();
+    bets = new Array(Number(betsNumber));
+    for (let i = 0; i < bets.length; i++) {
+        bets[i] = [];
+        //console.log('bets[i] where i = ' + i);
     }
 }
 
-// CREAR TABLERO DE APUESTAS
+const startButtonEl = document.getElementById('startButton');
+startButtonEl.addEventListener('click', Start);
 
-function crearTablero() {
+// BETS BOARD CREATION
 
-    let codigoA, bloque, titulo, casillas, unidad, codigoN;
-    let tablero = document.getElementById("tablero");
+function CreateBoard() {
 
-    for (let i = 1; i <= numeroApuestas; i++) {
+    let codeA, block, titleHeading, tiles, unit, codeN;
+    const boardEl = document.getElementById('board');
 
-        codigoA = "a" + i;
+    for (let i = 1; i <= betsNumber; i++) {
 
-        bloque = document.createElement("div");
-        bloque.setAttribute("id", codigoA);
+        codeA = 'a' + i;
 
-        titulo = document.createElement("h3");
-        titulo.innerHTML = "apuesta nº " + i;
-        bloque.appendChild(titulo);
+        block = document.createElement('div');
+        block.setAttribute('id', codeA);
 
-        casillas = document.createElement("div");
-        casillas.setAttribute("id", "casillas");
+        titleHeading = document.createElement('h3');
+        titleHeading.innerHTML = 'apuesta nº ' + i;
+        block.appendChild(titleHeading);
+
+        tiles = document.createElement('div');
+        tiles.setAttribute('id', 'tiles');
 
         for (let j = 1; j <= 49; j++) {
-            unidad = document.createElement("span");
+            unit = document.createElement('span');
             if (j < 10) {
-                unidad.innerHTML = "0" + j;
+                unit.innerHTML = '0' + j;
             } else {
-                unidad.innerHTML = j;
+                unit.innerHTML = j;
             }
-            codigoN = codigoA + "n" + j;
-            unidad.setAttribute("id", codigoN);
-            let funcion = "checkCasilla('" + codigoN + "')";
-            unidad.setAttribute("onclick", funcion);
-            casillas.appendChild(unidad);
+            codeN = codeA + 'n' + j;
+            unit.setAttribute('id', codeN);
+            const functionReference = `CheckCasilla( '${codeN}')`;
+            unit.setAttribute('onclick', functionReference);
+            tiles.appendChild(unit);
         }
-        bloque.appendChild(casillas);
-        tablero.appendChild(bloque);
+        block.appendChild(tiles);
+        boardEl.appendChild(block);
     }
 }
 
-// CADA VEZ QUE USUARIO CLICA UNA CASILLA DE NÚMERO
+// USER CLICKS A NUMBER
 
-function checkCasilla(id) {
+function CheckCasilla(id) {
+    //console.log('id: '+ id);
+    const clickedEl = document.getElementById(id);
+    //console.log('clickedEl: ' + clickedEl);
+    const clickedElId = clickedEl.getAttribute('id');
+    // this position is the character of the id meaning the bet number, then extract the index
+    const betClicked = clickedElId.charAt(1);
+    const betClickedIndex = Number(betClicked - 1);
 
-    let elementoClicado = document.getElementById(id);
+    //console.log('clickedElId: ' + clickedElId);
+    const numberClicked = Number(clickedElId.substring(3));
+    //console.log('id elemento: ' + clickedElId);
+    //console.log('betClicked: ' + betClicked);
+    //console.log('numberClicked: ' + numberClicked);
+    //console.log('betClickedIndex: ' + betClickedIndex);
 
-    let idElementoClicado = elementoClicado.getAttribute("id");
-    let apuestaClicada = idElementoClicado.charAt(1);
-    let index = Number(apuestaClicada - 1);
+    const have = bets[betClickedIndex].includes(numberClicked);
+    //console.log('have: ' + have);
 
-    // console.log("id elemento = " + idElementoClicado);
-    idElementoClicado = idElementoClicado.substring(3);
-    idElementoClicado = Number(idElementoClicado);
-    // console.log("id elemento = " + idElementoClicado);
-    // console.log("apuesta clicada = " + apuestaClicada);
-    // console.log("index apuestas = " + index);
+    const fullBlock = bets[betClickedIndex].length === 6;
+    //console.log('fullBlock: ' + fullBlock);
 
-    let contiene = apuestas[index].includes(idElementoClicado);
-    // console.log(contiene);
-
-    let lleno = apuestas[index].length === 6;
-    // console.log(lleno);
-
-    if (!contiene && !lleno) {
-        elementoClicado.classList.toggle('checked');
-        apuestas[index].push(idElementoClicado);
-        // console.log("nº elementos en apuesta " + apuestaClicada + " = " + apuestas[index].length);
-    } else if (!contiene && lleno) {
-        alert("Ese bloque está completo, quita otro número antes de añadir");
+    if (!have && !fullBlock) {
+        clickedEl.classList.toggle('checked');
+        bets[betClickedIndex].push(numberClicked);
+        //console.log('bets[' + betClickedIndex + '].length: ' + bets[betClickedIndex].length);
+    } else if (!have && fullBlock) {
+        alert('Ese bloque está completo, quita otro número antes de añadir');
     } else {
-        elementoClicado.classList.toggle('checked');
-        let indexElemento = apuestas[index].indexOf(idElementoClicado);
-        apuestas[index].splice(indexElemento, 1);
-        // console.log("nº elementos en apuesta " + apuestaClicada + " = " + apuestas[index].length);
+        clickedEl.classList.toggle('checked');
+        const numberClickedToRemove = bets[betClickedIndex].indexOf(clickedElId);
+        bets[betClickedIndex].splice(numberClickedToRemove, 1);
+        //console.log('bets[' + betClickedIndex + '].length: ' + bets[betClickedIndex].length);
     }
 }
 
-// BOTÓN ECHAR PRIMITIVA
+// PLAY PRIMITIVA
 
-var contador = 0;
-var premio;
+let betsFilledCount = 0;
+let prize = [];
 
-function jugar() {
+const playGameButtonEl = document.getElementById('playGameButton');
 
-    for (let i = 0; i < numeroApuestas; i++) {
-        if (apuestas[i].length == 6) {
-            contador++;
+function PlayGame() {
+
+    for (let i = 0; i < betsNumber; i++) {
+        if (bets[i].length == 6) {
+            betsFilledCount++;
         }
     }
 
-    // console.log("nº apuestas = " + numeroApuestas);
-    // console.log("contador = " + contador);
+    //console.log('betsNumber: ' + betsNumber);
+    //console.log('betsFilledCount: ' + betsFilledCount);
 
-    if (contador != numeroApuestas) {
-        alert("debe rellenar todas las apuestas (6 números cada una)");
-        contador = 0;
-    } else if (contador == numeroApuestas) {
-        // console.log("apuestas completas");
-        premio = rellenarVectorAleatoriosEntre(1, 49, 6);
-        let cajaQuitar = document.getElementById('apuestas');
-        let cajaPoner = document.getElementById('resultados');
-        cajaQuitar.style.display = "none";
-        cajaPoner.style.display = "flex";
-        let imprimirPremio = document.getElementById('premio');
-        imprimirPremio.innerHTML = "premio = " + premio;
-        checkApuesta(apuestas, premio);
+    if (betsFilledCount !== Number(betsNumber)) {
+        //console.log('betsFilledCount !== Number(betsNumber)');
+        alert('debe rellenar todas las bets (6 números cada una)');
+        betsFilledCount = 0;
+    } else if (betsFilledCount === Number(betsNumber)) {
+        //console.log('betsFilledCount === Number(betsNumber)');
+        prize = CreateArrayWithRandomNumbersBetween(1, 49, 6);
+        const containerToRemove = document.getElementById('bets');
+        const containerToAdd = document.getElementById('results');
+        containerToRemove.style.display = 'none';
+        containerToAdd.style.display = 'flex';
+        const prizeEl = document.getElementById('prize');
+        prizeEl.innerHTML = 'prize = ' + prize;
+        CheckBet(bets, prize);
     }
 }
 
-function rellenarVectorAleatoriosEntre(min, max, longitudVector) {
+function CreateArrayWithRandomNumbersBetween(min, max, arrayLength) {
 
-    let vector = [];
-    for (let i = 0; i < longitudVector; i++) {
-        vector.push(-1);
+    let array = [];
+    for (let i = 0; i < arrayLength; i++) {
+        array.push(-1);
     }
 
-    let aleatorio;
+    let random;
 
-    for (let j = 0; j < vector.length; j++) {
+    for (let j = 0; j < array.length; j++) {
 
         do {
-            aleatorio = Math.floor(Math.random() * (min - max) + max);
+            random = Math.floor(Math.random() * (min - max) + max);
         }
-        while (aleatorio == vector[0] || aleatorio == vector[1] || aleatorio == vector[2] || aleatorio == vector[3] || aleatorio == vector[4] || aleatorio == vector[5]);
+        while (random == array[0] || random == array[1] || random == array[2] || random == array[3] || random == array[4] || random == array[5]);
 
-        vector[j] = aleatorio;
+        array[j] = random;
     }
-    return vector;
+    return array;
 }
 
-function checkApuesta(apuestas, premio) {
+function CheckBet(bets, prize) {
 
-    let aciertos = 0;
-    let caja, titulo, numeros, acertados;
-    let tablero = document.getElementById("rank");
+    let hits = 0;
+    let box, titleHeading, numbersParagraph, hitsParagraph;
+    const boardEl = document.getElementById('rank');
 
-    for (let j = 0; j < apuestas.length; j++) {
+    for (let j = 0; j < bets.length; j++) {
 
-        caja = document.createElement("div");
+        box = document.createElement('div');
 
-        titulo = document.createElement("h3");
-        titulo.innerHTML = "*** APUESTA " + (j + 1) + " ***";
-        caja.appendChild(titulo);
+        titleHeading = document.createElement('h3');
+        titleHeading.innerHTML = '*** APUESTA ' + (j + 1) + ' ***';
+        box.appendChild(titleHeading);
 
-        numeros = document.createElement("p");
-        numeros.innerHTML = "números = " + apuestas[j];
-        caja.appendChild(numeros);
+        numbersParagraph = document.createElement('p');
+        numbersParagraph.innerHTML = 'números = ' + bets[j];
+        box.appendChild(numbersParagraph);
 
-        for (let k = 0; k < apuestas[j].length; k++) {
-            for (let l = 0; l < premio.length; l++) {
-                if (apuestas[j][k] == premio[l]) {
-                    aciertos++;
+        for (let k = 0; k < bets[j].length; k++) {
+            for (let l = 0; l < prize.length; l++) {
+                if (bets[j][k] == prize[l]) {
+                    hits++;
                 }
             }
 
         }
-        acertados = document.createElement("p");
-        acertados.innerHTML = "aciertos = " + aciertos;
-        caja.appendChild(acertados);
-        aciertos = 0;
+        hitsParagraph = document.createElement('p');
+        hitsParagraph.innerHTML = 'hits = ' + hits;
+        box.appendChild(hitsParagraph);
+        hits = 0;
 
-        tablero.appendChild(caja);
+        boardEl.appendChild(box);
     }
 }
