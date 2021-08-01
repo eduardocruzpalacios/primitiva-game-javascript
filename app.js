@@ -26,13 +26,13 @@ function Start() {
     const containerToAdd = document.getElementById('bets');
     containerToRemove.style.display = 'none';
     betsNumber = betsNumberEl.value;
-    console.log(`betsNumber: ${betsNumber}`)
+    console.log(`betsNumber: ${betsNumber}`);
     containerToAdd.style.display = 'flex';
     CreateBoard();
     bets = new Array(Number(betsNumber));
     for (let i = 0; i < bets.length; i++) {
         bets[i] = [];
-        console.log(`bets[i] where i: ${i}`)
+        console.log(`bets[i] where i: ${i}`);
     }
 }
 
@@ -81,25 +81,25 @@ function CreateBoard() {
 // USER CLICKS A NUMBER
 
 function CheckCasilla(id) {
-    console.log(`id: ${id}`)
+    console.log(`id: ${id}`);
     const clickedEl = document.getElementById(id);
-    console.log(`clickedEl: ${clickedEl}`)
+    console.log(`clickedEl: ${clickedEl}`);
     const clickedElId = clickedEl.getAttribute('id');
     // this position is the character of the id meaning the bet number, then extract the index
     const betClicked = clickedElId.charAt(1);
     const betClickedIndex = Number(betClicked - 1);
 
-    console.log(`clickedElId: ${clickedElId}`)
+    console.log(`clickedElId: ${clickedElId}`);
     const numberClicked = Number(clickedElId.substring(3));
-    console.log(`betClicked: ${betClicked}`)
-    console.log(`numberClicked: ${numberClicked}`)
-    console.log(`betClickedIndex: ${betClickedIndex}`)
+    console.log(`betClicked: ${betClicked}`);
+    console.log(`numberClicked: ${numberClicked}`);
+    console.log(`betClickedIndex: ${betClickedIndex}`);
 
     const have = bets[betClickedIndex].includes(numberClicked);
-    console.log(`have: ${have}`)
+    console.log(`have: ${have}`);
 
     const fullBlock = bets[betClickedIndex].length === 6;
-    console.log(`fullBlock: ${fullBlock}`)
+    console.log(`fullBlock: ${fullBlock}`);
 
     if (!have && !fullBlock) {
         clickedEl.classList.toggle('checked');
@@ -130,8 +130,8 @@ function PlayGame() {
         }
     }
 
-    console.log(`betsNumber: ${betsNumber}`)
-    console.log(`betsFilledCount: ${betsFilledCount}`)
+    console.log(`betsNumber: ${betsNumber}`);
+    console.log(`betsFilledCount: ${betsFilledCount}`);
 
     if (betsFilledCount !== Number(betsNumber)) {
         console.log('betsFilledCount !== Number(betsNumber)');
