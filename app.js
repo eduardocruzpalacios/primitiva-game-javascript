@@ -26,13 +26,13 @@ function Start() {
     const containerToAdd = document.getElementById('bets');
     containerToRemove.style.display = 'none';
     betsNumber = betsNumberEl.value;
-    //console.log('betsNumber: ' + betsNumber);
+    console.log(`betsNumber: ${betsNumber}`)
     containerToAdd.style.display = 'flex';
     CreateBoard();
     bets = new Array(Number(betsNumber));
     for (let i = 0; i < bets.length; i++) {
         bets[i] = [];
-        //console.log('bets[i] where i = ' + i);
+        console.log(`bets[i] where i: ${i}`)
     }
 }
 
@@ -81,38 +81,37 @@ function CreateBoard() {
 // USER CLICKS A NUMBER
 
 function CheckCasilla(id) {
-    //console.log('id: '+ id);
+    console.log(`id: ${id}`)
     const clickedEl = document.getElementById(id);
-    //console.log('clickedEl: ' + clickedEl);
+    console.log(`clickedEl: ${clickedEl}`)
     const clickedElId = clickedEl.getAttribute('id');
     // this position is the character of the id meaning the bet number, then extract the index
     const betClicked = clickedElId.charAt(1);
     const betClickedIndex = Number(betClicked - 1);
 
-    //console.log('clickedElId: ' + clickedElId);
+    console.log(`clickedElId: ${clickedElId}`)
     const numberClicked = Number(clickedElId.substring(3));
-    //console.log('id elemento: ' + clickedElId);
-    //console.log('betClicked: ' + betClicked);
-    //console.log('numberClicked: ' + numberClicked);
-    //console.log('betClickedIndex: ' + betClickedIndex);
+    console.log(`betClicked: ${betClicked}`)
+    console.log(`numberClicked: ${numberClicked}`)
+    console.log(`betClickedIndex: ${betClickedIndex}`)
 
     const have = bets[betClickedIndex].includes(numberClicked);
-    //console.log('have: ' + have);
+    console.log(`have: ${have}`)
 
     const fullBlock = bets[betClickedIndex].length === 6;
-    //console.log('fullBlock: ' + fullBlock);
+    console.log(`fullBlock: ${fullBlock}`)
 
     if (!have && !fullBlock) {
         clickedEl.classList.toggle('checked');
         bets[betClickedIndex].push(numberClicked);
-        //console.log('bets[' + betClickedIndex + '].length: ' + bets[betClickedIndex].length);
+        console.log(`bets[${betClickedIndex}].length: ${bets[betClickedIndex].length}`);
     } else if (!have && fullBlock) {
         alert('Ese bloque está completo, quita otro número antes de añadir');
     } else {
         clickedEl.classList.toggle('checked');
         const numberClickedToRemove = bets[betClickedIndex].indexOf(clickedElId);
         bets[betClickedIndex].splice(numberClickedToRemove, 1);
-        //console.log('bets[' + betClickedIndex + '].length: ' + bets[betClickedIndex].length);
+        console.log(`bets[${betClickedIndex}].length: ${bets[betClickedIndex].length}`);
     }
 }
 
@@ -131,15 +130,15 @@ function PlayGame() {
         }
     }
 
-    //console.log('betsNumber: ' + betsNumber);
-    //console.log('betsFilledCount: ' + betsFilledCount);
+    console.log(`betsNumber: ${betsNumber}`)
+    console.log(`betsFilledCount: ${betsFilledCount}`)
 
     if (betsFilledCount !== Number(betsNumber)) {
-        //console.log('betsFilledCount !== Number(betsNumber)');
+        console.log('betsFilledCount !== Number(betsNumber)');
         alert('debe rellenar todas las bets (6 números cada una)');
         betsFilledCount = 0;
     } else if (betsFilledCount === Number(betsNumber)) {
-        //console.log('betsFilledCount === Number(betsNumber)');
+        console.log('betsFilledCount === Number(betsNumber)');
         prize = CreateArrayWithRandomNumbersBetween(1, 49, 6);
         const containerToRemove = document.getElementById('bets');
         const containerToAdd = document.getElementById('results');
