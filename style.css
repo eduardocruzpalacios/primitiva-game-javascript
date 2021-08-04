@@ -59,7 +59,7 @@ button:hover {
     color: white;
 }
 
-/* INICIO */
+/* INITIAL SETUP */
 
 #initialSetUp {
     width: 90%;
@@ -135,7 +135,7 @@ span.checked {
     background-color: #f53844;
 }
 
-/* RESULTADOS */
+/* RESULTS */
 
 #results {
     width: 90%;
