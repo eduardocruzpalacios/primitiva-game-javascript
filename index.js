@@ -1,78 +1,52 @@
-function Start() {
+import { PrimitivaLogic } from './primitivaLogic/primitivaLogic.js';
+
+const Start = () => {
   const initialSetUpEl = document.getElementById('initialSetUp');
-  const betsEl = document.getElementById('bets');
   initialSetUpEl.style.display = 'none';
-  const betsNumber = betsNumberEl.value;
-  console.log(`betsNumber: ${betsNumber}`);
+  const betsEl = document.getElementById('bets');
   betsEl.style.display = 'flex';
-  bets = new Array(Number(betsNumber));
-  console.log(bets);
-  for (let i = 0; i < bets.length; i++) {
-    bets[i] = [];
-    console.log(`bets[i] where i: ${i}`);
-  }
+  const betsNumber = betsNumberEl.value;
+  bets = Array.from({ length: betsNumber }, () => []);
   // BOARD RENDERS
   let codeA, block, titleHeading, tiles, unit, codeN;
   const boardEl = document.getElementById('board');
   for (let i = 1; i <= bets.length; i++) {
-    codeA = 'b' + i;
-
+    codeA = `b${i}`;
     block = document.createElement('div');
     block.setAttribute('id', codeA);
-
     titleHeading = document.createElement('h3');
-    titleHeading.innerHTML = 'apuesta nº ' + i;
+    titleHeading.innerHTML = `apuesta nº ${i}`;
     block.appendChild(titleHeading);
-
     tiles = document.createElement('div');
     tiles.setAttribute('id', 'tiles');
-
     for (let j = 1; j <= 49; j++) {
       unit = document.createElement('span');
       if (j < 10) {
-        unit.innerHTML = '0' + j;
+        unit.innerHTML = `0${j}`;
       } else {
         unit.innerHTML = j;
       }
-      codeN = codeA + 'n' + j;
+      codeN = `${codeA}n${j}`;
       unit.setAttribute('id', codeN);
       // CHECK NUMBER
       unit.addEventListener('click', (event) => {
         const clickedEl = event.target;
-        console.log(`clickedEl: ${clickedEl}`);
         const clickedElId = clickedEl.getAttribute('id');
-        // this position is the character of the id meaning the bet number, then extract the index
         const betClicked = clickedElId.charAt(1);
         const betClickedIndex = Number(betClicked - 1);
-
-        console.log(`clickedElId: ${clickedElId}`);
         const numberClicked = Number(clickedElId.substring(3));
-        console.log(`betClicked: ${betClicked}`);
-        console.log(`numberClicked: ${numberClicked}`);
-        console.log(`betClickedIndex: ${betClickedIndex}`);
-
         const have = bets[betClickedIndex].includes(numberClicked);
-        console.log(`have: ${have}`);
-
         const fullBlock = bets[betClickedIndex].length === 6;
-        console.log(`fullBlock: ${fullBlock}`);
-
         if (!have && !fullBlock) {
-          clickedEl.classList.toggle('checked');
+          clickedEl.classList.add('checked');
           bets[betClickedIndex].push(numberClicked);
-          console.log(
-            `bets[${betClickedIndex}].length: ${bets[betClickedIndex].length}`
-          );
         } else if (!have && fullBlock) {
           alert('Ese bloque está completo, quita otro número antes de añadir');
         } else {
-          clickedEl.classList.toggle('checked');
+          clickedEl.classList.remove('checked');
           const numberClickedToRemove =
             bets[betClickedIndex].indexOf(clickedElId);
           bets[betClickedIndex].splice(numberClickedToRemove, 1);
-          console.log(
-            `bets[${betClickedIndex}].length: ${bets[betClickedIndex].length}`
-          );
         }
       });
       tiles.appendChild(unit);
@@ -80,75 +54,39 @@ function Start() {
     block.appendChild(tiles);
     boardEl.appendChild(block);
   }
-}
+};
 
-function PlaceBets() {
-  let betsFilledCount = 0;
-  for (let i = 0; i < bets.length; i++) {
-    if (bets[i].length == 6) {
-      betsFilledCount++;
-    }
-  }
-
-  console.log(`betsFilledCount: ${betsFilledCount}`);
-
-  if (betsFilledCount !== Number(bets.length)) {
-    console.log('betsFilledCount !== Number(betsNumber)');
+const PlaceBets = () => {
+  if (bets.some((element) => element.length < 6)) {
     alert('debe rellenar todas las bets (6 números cada una)');
-    betsFilledCount = 0;
-  } else if (betsFilledCount === Number(bets.length)) {
-    console.log('betsFilledCount === Number(betsNumber)');
-    const prize = CreateWinnerBet(1, 49, 6);
+  } else {
+    primitivaLogic.setBets(bets);
+    const prize = primitivaLogic.getWinnerBet();
     const initialSetUpEl = document.getElementById('bets');
     const betsEl = document.getElementById('results');
     initialSetUpEl.style.display = 'none';
     betsEl.style.display = 'flex';
     const prizeEl = document.getElementById('prize');
-    prizeEl.innerHTML = 'prize = ' + prize;
-    // CHECK HITS
-    let hits = 0;
+    prizeEl.innerHTML = `prize = ${prize}`;
+    // CHECK AND RENDER HITS
     let box, titleHeading, numbersParagraph, hitsParagraph;
     const boardEl = document.getElementById('hits');
-
-    for (let j = 0; j < bets.length; j++) {
+    for (let i = 0; i < bets.length; i++) {
       box = document.createElement('div');
-
       titleHeading = document.createElement('h3');
-      titleHeading.innerHTML = '*** APUESTA ' + (j + 1) + ' ***';
+      titleHeading.innerHTML = `*** APUESTA ${i + 1} ***`;
       box.appendChild(titleHeading);
-
       numbersParagraph = document.createElement('p');
-      numbersParagraph.innerHTML = 'números = ' + bets[j];
+      numbersParagraph.innerHTML = `números = ${bets[i]}`;
       box.appendChild(numbersParagraph);
-
-      for (let k = 0; k < bets[j].length; k++) {
-        for (let l = 0; l < prize.length; l++) {
-          if (bets[j][k] == prize[l]) {
-            hits++;
-          }
-        }
-      }
+      const hits = primitivaLogic.getNumberOfHits(i);
       hitsParagraph = document.createElement('p');
-      hitsParagraph.innerHTML = 'hits = ' + hits;
+      hitsParagraph.innerHTML = `hits = ${hits}`;
       box.appendChild(hitsParagraph);
-      hits = 0;
-
       boardEl.appendChild(box);
     }
   }
-}
-
-function CreateWinnerBet(min, max, arrayLength) {
-  let winnerBet = new Array(arrayLength);
-  let randomNumber;
-  for (let i = 0; i < winnerBet.length; i++) {
-    do {
-      randomNumber = Math.floor(Math.random() * (min - max) + max);
-    } while (winnerBet.includes(randomNumber));
-    winnerBet[i] = randomNumber;
-  }
-  return winnerBet;
-}
+};
 
 // MEMBERS & EVENTS
 const betsNumberTag = document.querySelector('#betsNumberTag');
@@ -162,6 +100,7 @@ betsNumberEl.addEventListener(
   false
 );
 
+let primitivaLogic = new PrimitivaLogic();
 let bets = [];
 
 const startButtonEl = document.getElementById('start');
