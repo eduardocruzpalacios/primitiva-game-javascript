@@ -134,7 +134,7 @@ function PlayGame() {
     betsFilledCount = 0;
   } else if (betsFilledCount === Number(bets.length)) {
     console.log('betsFilledCount === Number(betsNumber)');
-    prize = CreateArrayWithRandomNumbersBetween(1, 49, 6);
+    prize = CreateWinnerBet(1, 49, 6);
     const initialSetUpEl = document.getElementById('bets');
     const betsEl = document.getElementById('results');
     initialSetUpEl.style.display = 'none';
@@ -145,27 +145,14 @@ function PlayGame() {
   }
 }
 
-function CreateArrayWithRandomNumbersBetween(min, max, arrayLength) {
-  let array = [];
-  for (let i = 0; i < arrayLength; i++) {
-    array.push(-1);
-  }
-
-  let random;
-
-  for (let j = 0; j < array.length; j++) {
+function CreateWinnerBet(min, max, arrayLength) {
+  let winnerBet = new Array(arrayLength);
+  let randomNumber;
+  for (let i = 0; i < winnerBet.length; i++) {
     do {
-      random = Math.floor(Math.random() * (min - max) + max);
-    } while (
-      random == array[0] ||
-      random == array[1] ||
-      random == array[2] ||
-      random == array[3] ||
-      random == array[4] ||
-      random == array[5]
-    );
-
-    array[j] = random;
+      randomNumber = Math.floor(Math.randomNumber() * (min - max) + max);
+    } while (winnerBet.includes(randomNumber));
+    winnerBet[i] = randomNumber;
   }
   return array;
 }
