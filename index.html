@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Eduardo de la Cruz Palacios" />
     <meta name="description" content="juego de la primitiva" />
     <meta name="keywords" content="Primitiva, juego" />
@@ -12,53 +11,43 @@
     <meta name="robots" content="index, follow" />
     <title>Primitiva</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <!-- JS -->
     <script src="app.js" defer></script>
     <!-- GOOGLE FONTS -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap" rel="stylesheet">
-</head>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-
+  <body>
     <h1>Primitiva</h1>
 
     <section id="initialSetUp">
+      <h2>¿Cuántas apuestas quieres jugar?</h2>
+      <p>Puedes jugar entre 1 y 8 apuesta/s</p>
+      <p>1 apuesta son 6 números no repetidos entre 1 y 49</p>
 
-        <h2>¿Cuántas apuestas quieres jugar?</h2>
-        <p>Puedes jugar entre 1 y 8 apuesta/s</p>
-        <p>Cada apuesta es 1 conjunto de 6 números no repetidos y comprendidos entre 1 y 49</p>
+      <div class="range-container">
+        <div id="betsNumberTag"></div>
+        <input type="range" id="betsNumber" min="1" max="8" value="1" />
+      </div>
 
-        <div class="range-container">
-            <div id="betsNumberTag"></div>
-            <input type="range" id="betsNumber" min="1" max="8" value="1">
-        </div>
-
-        <button id="startButton">Comenzar</button>
-
+      <button id="startButton">Comenzar</button>
     </section>
 
     <section id="bets">
-
-        <h2>Haga sus apuestas</h2>
-
-        <div id="board"></div>
-
-        <button onclick="PlayGame()">Echar primitiva</button>
-
+      <h2>Haga sus apuestas</h2>
+      <div id="board"></div>
+      <button id="playGame">Echar primitiva</button>
     </section>
 
     <section id="results">
-
-        <h2>Resultados</h2>
-
-        <p id="prize"></p>
-
-        <div id="rank"></div>
-
+      <h2>Resultados</h2>
+      <p id="prize"></p>
+      <div id="rank"></div>
     </section>
-
-</body>
-
+  </body>
 </html>

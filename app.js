@@ -13,22 +13,22 @@ betsNumberEl.addEventListener(
 
 // START
 
-let betsNumber;
 let bets = [];
 
 function Start() {
-  const containerToRemove = document.getElementById('initialSetUp');
-  const containerToAdd = document.getElementById('bets');
-  containerToRemove.style.display = 'none';
-  betsNumber = betsNumberEl.value;
+  const initialSetUpEl = document.getElementById('initialSetUp');
+  const betsEl = document.getElementById('bets');
+  initialSetUpEl.style.display = 'none';
+  const betsNumber = betsNumberEl.value;
   console.log(`betsNumber: ${betsNumber}`);
-  containerToAdd.style.display = 'flex';
-  CreateBoard();
+  betsEl.style.display = 'flex';
   bets = new Array(Number(betsNumber));
+  console.log(bets);
   for (let i = 0; i < bets.length; i++) {
     bets[i] = [];
     console.log(`bets[i] where i: ${i}`);
   }
+  CreateBoard();
 }
 
 const startButtonEl = document.getElementById('startButton');
@@ -39,8 +39,7 @@ startButtonEl.addEventListener('click', Start);
 function CreateBoard() {
   let codeA, block, titleHeading, tiles, unit, codeN;
   const boardEl = document.getElementById('board');
-
-  for (let i = 1; i <= betsNumber; i++) {
+  for (let i = 1; i <= bets.length; i++) {
     codeA = 'a' + i;
 
     block = document.createElement('div');
@@ -117,29 +116,29 @@ function CheckCasilla(id) {
 let betsFilledCount = 0;
 let prize = [];
 
-const playGameButtonEl = document.getElementById('playGameButton');
+const playGameEl = document.getElementById('playGame');
+playGameEl.addEventListener('click', PlayGame);
 
 function PlayGame() {
-  for (let i = 0; i < betsNumber; i++) {
+  for (let i = 0; i < bets.length; i++) {
     if (bets[i].length == 6) {
       betsFilledCount++;
     }
   }
 
-  console.log(`betsNumber: ${betsNumber}`);
   console.log(`betsFilledCount: ${betsFilledCount}`);
 
-  if (betsFilledCount !== Number(betsNumber)) {
+  if (betsFilledCount !== Number(bets.length)) {
     console.log('betsFilledCount !== Number(betsNumber)');
     alert('debe rellenar todas las bets (6 números cada una)');
     betsFilledCount = 0;
-  } else if (betsFilledCount === Number(betsNumber)) {
+  } else if (betsFilledCount === Number(bets.length)) {
     console.log('betsFilledCount === Number(betsNumber)');
     prize = CreateArrayWithRandomNumbersBetween(1, 49, 6);
-    const containerToRemove = document.getElementById('bets');
-    const containerToAdd = document.getElementById('results');
-    containerToRemove.style.display = 'none';
-    containerToAdd.style.display = 'flex';
+    const initialSetUpEl = document.getElementById('bets');
+    const betsEl = document.getElementById('results');
+    initialSetUpEl.style.display = 'none';
+    betsEl.style.display = 'flex';
     const prizeEl = document.getElementById('prize');
     prizeEl.innerHTML = 'prize = ' + prize;
     CheckBet(bets, prize);
