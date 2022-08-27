@@ -102,15 +102,15 @@ function Start() {
 const startButtonEl = document.getElementById('start');
 startButtonEl.addEventListener('click', Start);
 
-// PLAY PRIMITIVA
+// PLACE BETS
 
 let betsFilledCount = 0;
 let prize = [];
 
-const playGameEl = document.getElementById('playGame');
-playGameEl.addEventListener('click', PlayGame);
+const placeBetsEl = document.getElementById('placeBets');
+placeBetsEl.addEventListener('click', PlaceBets);
 
-function PlayGame() {
+function PlaceBets() {
   for (let i = 0; i < bets.length; i++) {
     if (bets[i].length == 6) {
       betsFilledCount++;
@@ -151,7 +151,7 @@ function CreateWinnerBet(min, max, arrayLength) {
 function CheckBet(bets, prize) {
   let hits = 0;
   let box, titleHeading, numbersParagraph, hitsParagraph;
-  const boardEl = document.getElementById('rank');
+  const boardEl = document.getElementById('hits');
 
   for (let j = 0; j < bets.length; j++) {
     box = document.createElement('div');
