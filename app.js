@@ -105,7 +105,36 @@ function PlaceBets() {
     betsEl.style.display = 'flex';
     const prizeEl = document.getElementById('prize');
     prizeEl.innerHTML = 'prize = ' + prize;
-    CheckBet(bets, prize);
+    // CHECK HITS
+    let hits = 0;
+    let box, titleHeading, numbersParagraph, hitsParagraph;
+    const boardEl = document.getElementById('hits');
+
+    for (let j = 0; j < bets.length; j++) {
+      box = document.createElement('div');
+
+      titleHeading = document.createElement('h3');
+      titleHeading.innerHTML = '*** APUESTA ' + (j + 1) + ' ***';
+      box.appendChild(titleHeading);
+
+      numbersParagraph = document.createElement('p');
+      numbersParagraph.innerHTML = 'números = ' + bets[j];
+      box.appendChild(numbersParagraph);
+
+      for (let k = 0; k < bets[j].length; k++) {
+        for (let l = 0; l < prize.length; l++) {
+          if (bets[j][k] == prize[l]) {
+            hits++;
+          }
+        }
+      }
+      hitsParagraph = document.createElement('p');
+      hitsParagraph.innerHTML = 'hits = ' + hits;
+      box.appendChild(hitsParagraph);
+      hits = 0;
+
+      boardEl.appendChild(box);
+    }
   }
 }
 
@@ -119,38 +148,6 @@ function CreateWinnerBet(min, max, arrayLength) {
     winnerBet[i] = randomNumber;
   }
   return winnerBet;
-}
-
-function CheckBet(bets, prize) {
-  let hits = 0;
-  let box, titleHeading, numbersParagraph, hitsParagraph;
-  const boardEl = document.getElementById('hits');
-
-  for (let j = 0; j < bets.length; j++) {
-    box = document.createElement('div');
-
-    titleHeading = document.createElement('h3');
-    titleHeading.innerHTML = '*** APUESTA ' + (j + 1) + ' ***';
-    box.appendChild(titleHeading);
-
-    numbersParagraph = document.createElement('p');
-    numbersParagraph.innerHTML = 'números = ' + bets[j];
-    box.appendChild(numbersParagraph);
-
-    for (let k = 0; k < bets[j].length; k++) {
-      for (let l = 0; l < prize.length; l++) {
-        if (bets[j][k] == prize[l]) {
-          hits++;
-        }
-      }
-    }
-    hitsParagraph = document.createElement('p');
-    hitsParagraph.innerHTML = 'hits = ' + hits;
-    box.appendChild(hitsParagraph);
-    hits = 0;
-
-    boardEl.appendChild(box);
-  }
 }
 
 // MEMBERS & EVENTS
