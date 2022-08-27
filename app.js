@@ -1,20 +1,3 @@
-// RANGE ELEMENT TO SELECT THE NUMBER OF BETS
-
-const betsNumberEl = document.getElementById('betsNumber');
-const betsNumberTag = document.querySelector('#betsNumberTag');
-betsNumberTag.innerHTML = betsNumberEl.value;
-betsNumberEl.addEventListener(
-  'input',
-  function () {
-    betsNumberTag.innerHTML = betsNumberEl.value;
-  },
-  false
-);
-
-// START BUTTON IS PRESSED
-
-let bets = [];
-
 function Start() {
   const initialSetUpEl = document.getElementById('initialSetUp');
   const betsEl = document.getElementById('bets');
@@ -99,18 +82,8 @@ function Start() {
   }
 }
 
-const startButtonEl = document.getElementById('start');
-startButtonEl.addEventListener('click', Start);
-
-// PLACE BETS
-
-let betsFilledCount = 0;
-let prize = [];
-
-const placeBetsEl = document.getElementById('placeBets');
-placeBetsEl.addEventListener('click', PlaceBets);
-
 function PlaceBets() {
+  let betsFilledCount = 0;
   for (let i = 0; i < bets.length; i++) {
     if (bets[i].length == 6) {
       betsFilledCount++;
@@ -125,7 +98,7 @@ function PlaceBets() {
     betsFilledCount = 0;
   } else if (betsFilledCount === Number(bets.length)) {
     console.log('betsFilledCount === Number(betsNumber)');
-    prize = CreateWinnerBet(1, 49, 6);
+    const prize = CreateWinnerBet(1, 49, 6);
     const initialSetUpEl = document.getElementById('bets');
     const betsEl = document.getElementById('results');
     initialSetUpEl.style.display = 'none';
@@ -179,3 +152,23 @@ function CheckBet(bets, prize) {
     boardEl.appendChild(box);
   }
 }
+
+// MEMBERS & EVENTS
+const betsNumberTag = document.querySelector('#betsNumberTag');
+const betsNumberEl = document.getElementById('betsNumber');
+betsNumberTag.innerHTML = betsNumberEl.value;
+betsNumberEl.addEventListener(
+  'input',
+  function () {
+    betsNumberTag.innerHTML = betsNumberEl.value;
+  },
+  false
+);
+
+let bets = [];
+
+const startButtonEl = document.getElementById('start');
+startButtonEl.addEventListener('click', Start);
+
+const placeBetsEl = document.getElementById('placeBets');
+placeBetsEl.addEventListener('click', PlaceBets);
