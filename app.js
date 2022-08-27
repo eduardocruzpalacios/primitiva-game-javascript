@@ -1,22 +1,15 @@
 // RANGE ELEMENT
 
 const betsNumberEl = document.getElementById('betsNumber');
-
-if (betsNumberEl) {
-  const betsNumberTag = document.querySelector('#betsNumberTag');
-
-  if (betsNumberTag) {
+const betsNumberTag = document.querySelector('#betsNumberTag');
+betsNumberTag.innerHTML = betsNumberEl.value;
+betsNumberEl.addEventListener(
+  'input',
+  function () {
     betsNumberTag.innerHTML = betsNumberEl.value;
-
-    betsNumberEl.addEventListener(
-      'input',
-      function () {
-        betsNumberTag.innerHTML = betsNumberEl.value;
-      },
-      false
-    );
-  }
-}
+  },
+  false
+);
 
 // START
 
