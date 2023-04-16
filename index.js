@@ -1,4 +1,4 @@
-import { PrimitivaLogic } from './primitivaLogic/primitivaLogic.js';
+import { primitivaLogic } from './primitivaLogic/primitivaLogic.js';
 
 const Start = () => {
   const initialSetUpEl = document.getElementById('initialSetUp');
@@ -100,7 +100,6 @@ betsNumberEl.addEventListener(
   false
 );
 
-let primitivaLogic = new PrimitivaLogic();
 let bets = [];
 
 const startButtonEl = document.getElementById('start');

@@ -1,4 +1,4 @@
-export class PrimitivaLogic {
+class PrimitivaLogic {
   constructor() {
     this.bets = null;
     this.winnerBet = null;
@@ -43,3 +43,5 @@ export class PrimitivaLogic {
     return this.numberOfHits[bet];
   }
 }
+
+export const primitivaLogic = new PrimitivaLogic();
